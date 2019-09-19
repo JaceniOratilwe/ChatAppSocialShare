@@ -1,0 +1,47 @@
+.chat{
+    display: flex;
+    flex-direction: column;
+    // font-weight: bold;
+
+    .me{
+        position: relative;
+        margin: 20px 5px 0px;
+        max-width: 80%;
+        align-self: flex-end;
+        padding: 6px 10px 7px;
+        border-radius: 15px 15px 0;
+        background: rgb(174, 207, 174);
+
+        font-size: medium;
+        line-height: 1.4;
+        // font-weight: bold;
+    }
+    .you{
+        position: relative;
+        margin: 15px;
+        max-width : 80%; 
+        align-self: flex-start;
+        padding: 6px 10px 7px;
+        border-radius: 15px 15px 0;
+        background: rgba(127, 188, 223, 0.719);
+
+        font-size: medium;
+        line-height: 1.4;
+        // font-weight: bold;
+
+    .name{
+            font-size: small;
+            font-weight: bold;
+        }
+
+    }
+}
+
+ion-content{
+--background:url(../../assets/images/pattern_a.png);
+    // --ion-background-color:rgba(145, 204, 243, 0.651);
+}
+ion-toolbar{
+    text-align: center;
+    // color: black;
+}

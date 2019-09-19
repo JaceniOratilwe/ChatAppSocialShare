@@ -1,0 +1,47 @@
+
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>Chat App</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content padding>
+
+    <ion-row>
+        <ion-col text-center>
+          <b>Welcome!</b>
+        </ion-col>
+      </ion-row>
+    <ion-grid> 
+      <ion-row>
+        <ion-col text-center>
+          Your Registered Email : {{userEmail}}
+        </ion-col>
+      </ion-row>
+    </ion-grid> 
+
+
+  <!-- tabs -->
+
+  <ion-tabs>
+
+    <ion-tab-bar slot="bottom" color="primary">
+      <ion-tab-button tab="profile">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Profile</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="main">
+        <ion-icon name="apps"></ion-icon>
+        <ion-label>Group Chat</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="userprofile">
+        <ion-icon name="settings"></ion-icon>
+        <ion-label>Social Share</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  
+  </ion-tabs>
+</ion-content>
+    

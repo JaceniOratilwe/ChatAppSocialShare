@@ -1,0 +1,192 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-title>
+      Ionic 4 Firestore CRUD Operation Demo
+    </ion-title>
+  </ion-toolbar> -->
+</ion-header>
+ 
+<ion-content padding>
+
+
+  <!-- new image upload -->
+  <ion-card text-center *ngIf="!isUploading && !isUploaded">
+    <ion-card-header>
+      <ion-card-title>Choose Images to Upload</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="fileUpload btn btn-primary">
+        <span>Upload</span>
+        <input
+          id="uploadBtn"
+          type="file"
+          class="upload"
+          (change)="uploadFile($event.target.files)"
+        />
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card text-center *ngIf="isUploading && !isUploaded">
+    <ion-card-header>
+      <ion-card-title
+        >Selected File:<b>{{ fileName }}</b></ion-card-title
+      >
+    </ion-card-header>
+ 
+    <ion-card-content>
+      <div *ngIf="percentage | async as pct">
+        Progress: {{ pct | number }}%
+        <ion-progress-bar value="{{ pct / 100 }}"></ion-progress-bar>
+      </div>
+      <div *ngIf="snapshot | async as snap">
+        File Size: {{ snap.totalBytes | fileSizePipe }} Transfered:
+        {{ snap.bytesTransferred | fileSizePipe }}
+        <div *ngIf="snapshot && snap.bytesTransferred != snap.totalBytes">
+          <ion-button
+            color="warning"
+            size="small"
+            (click)="task.pause()"
+            class="button is-warning"
+            >Pause</ion-button
+          >
+          <ion-button
+            size="small"
+            (click)="task.resume()"
+            class="button is-info"
+            >Resume</ion-button
+          >
+          <ion-button
+            color="danger"
+            size="small"
+            (click)="task.cancel()"
+            class="button is-danger"
+            >Cancel</ion-button
+          >
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card text-center *ngIf="!isUploading && isUploaded">
+    <ion-card-header>
+      <ion-card-title>
+        <b>Image Uploaded Successfully</b> 
+      </ion-card-title>
+    </ion-card-header>
+ 
+    <ion-card-content>
+      <div *ngIf="UploadedFileURL | async as url">
+        <img [src]="url" />
+        <a [href]="url" target="_blank" rel="noopener">Download</a>
+      </div>
+     
+      <ion-button
+        expand="full"
+        color="success"
+        (click)="isUploading = isUploaded = false"
+        >Upload More</ion-button
+      >
+    </ion-card-content>
+  </ion-card>
+ 
+  <!-- <h2 text-center>Uploaded Freaky Images</h2>
+ 
+  <ion-card color="light" text-center *ngFor="let item of images | async">
+    <ion-card-header>
+      <ion-card-title>
+        {{ item.name }}
+      </ion-card-title>
+    </ion-card-header>
+ 
+    <ion-card-content>
+      <img [src]="item.filepath" />
+      <a [href]="item.filepath" target="_blank" rel="noopener">Download</a>
+    </ion-card-content>
+  </ion-card> -->
+ 
+  <!-- Social Share --><!-- Social Share --><!-- Social Share --><!-- Social Share --><!-- Social Share --><!-- Social Share --><!-- Social Share -->
+
+  <ion-card text-center *ngIf="!isUploading && isUploaded">
+    <ion-card-header>
+      <ion-card-title>
+        <b>Social Share</b> 
+      </ion-card-title>
+    </ion-card-header>
+ 
+    <ion-card-content>
+        <!-- <h1><img class="icon"  src="../../assets/images/chat-app-icon-8.jpg" alt="chatApp icon"></h1> --> <!--USE OF IMAGES INSTEAD OF BUTTONS-->
+        <img class="icon"  src="../../assets/images/share-on-facebook.png" alt="chatApp icon">
+        <img class="icon"  src="../../assets/images/share-twitter.png" alt="chatApp icon">
+        <img class="icon"  src="../../assets/images/Instagram-share.png" alt="chatApp icon">
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card color="light" text-center *ngFor="let item of images | async">
+    <ion-card-header>
+      <ion-card-title>
+        Social Share
+      </ion-card-title>
+    </ion-card-header>
+ 
+    <ion-card-content>
+      <ion-button shape="round" color="danger" size="full" (click)="RemoveRecord(item.id)">Share on Twitter</ion-button> 
+    </ion-card-content>
+  </ion-card>  -->
+ 
+  <ion-card *ngFor="let item of students">
+    <span *ngIf="!item.isEdit; else elseBlock">
+      <ion-card-header>
+        <ion-card-title>{{item.Name}} of {{item.Age}} years</ion-card-title>
+        <ion-card-subtitle>From: {{item.Address}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+ 
+        <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
+          <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+ 
+        </ion-button>
+        <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
+          <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+ 
+        </ion-button>
+      </ion-card-content>
+    </span>
+    <ng-template #elseBlock>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                Edit
+              </ion-col>
+              <ion-col>
+                <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
+                  Cancel
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
+                  Update
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label><strong>Name</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.EditName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><strong>Age</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.EditAge"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><strong>Address</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.EditAddress"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ng-template>
+  </ion-card>
+ 
+</ion-content>
