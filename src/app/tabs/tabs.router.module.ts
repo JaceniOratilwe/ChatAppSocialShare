@@ -9,7 +9,7 @@ const routes: Routes = [
     component:TabsPage,
     children:[{ path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
     { path: 'main', loadChildren: './main/main.module#MainPageModule' },
-    { path: 'userprofile', loadChildren: './userprofile/userprofile.module#UserprofilePageModule' }]
+    { path: 'userprofile', loadChildren: './userprofile/userprofile.module#UserprofilePageModule' }],
 
   }
   
